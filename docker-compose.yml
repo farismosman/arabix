@@ -1,0 +1,12 @@
+
+version: '2.2'
+services:
+  kibana:
+    image: text-analyzer
+    container_name: text-analyzer
+    volumes:
+      - textanalyzer:/analyzer/data
+
+volumes:
+  textanalyzer:
+    driver: local

@@ -1,0 +1,12 @@
+preprocessor
+matplotlib
+pandas
+nltk
+alphabet-detector
+tweepy
+python-bidi
+arabic_reshaper
+wordcloud
+cltk
+scikit-learn
+elasticsearch
