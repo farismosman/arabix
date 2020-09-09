@@ -4,23 +4,25 @@ from src.utils import helpers
 from sklearn.feature_extraction.text import CountVectorizer
 
 class BoW:
-    def __init__(self, data, vocabulary, language):
+    def __init__(self, data, language, ngram, no_features, vocabulary):
         self.data = data
-        self.vocabulary = vocabulary
-        self.language = language
+        self.vectorizer = self.__vectorizer__(
+            language,
+            ngram,
+            no_features,
+            vocabulary)
 
-    def tf(self, no_features, ngram=(1, 1)):
-        count_vectorizer = CountVectorizer(
+    def tf(self,):
+        vectors = self.vectorizer.fit_transform(self.data)
+        return vectors.todense(), self.vectorizer.get_feature_names()
+
+    def __vectorizer__(self, language, ngram, no_features, vocabulary):
+        vectorizer = CountVectorizer(
             analyzer = "word",
-            stop_words=helpers.stopwords(self.language),
+            stop_words=helpers.stopwords(language),
             max_features=no_features,
             ngram_range=ngram,
-            vocabulary=self.vocabulary)
+            vocabulary=vocabulary)
 
-        vectors = count_vectorizer.fit_transform(self.data)
-
-        return vectors.todense(), count_vectorizer.get_feature_names()
-
-
-    def cooccurrence(self, order, no_features):
-        return self.tf(no_features=no_features, ngram=(1, order))
+        vectorizer.fit(self.data)
+        return vectorizer
