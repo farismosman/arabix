@@ -12,3 +12,6 @@ class PCA:
     vectors = pca.fit_transform(self.bow)
     self.pca = pca
     return vectors
+
+  def explained_variance_ratio(self):
+    return self.pca.explained_variance_ratio_

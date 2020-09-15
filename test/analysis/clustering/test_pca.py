@@ -31,3 +31,11 @@ class TestPCA(TestCase):
 
     self.assertEqual(len(clusters), 5751)
     self.assertEqual(len(clusters[0]), 2)
+
+  def test_explained_variance_ratio_should_return_the_variance_ratio(self):
+    pca = PCA(bow=self.vectors, no_components=5)
+    pca.cluster()
+
+    vectors = pca.explained_variance_ratio()
+
+    self.assertEqual(len(vectors), 5)
